@@ -1,3 +1,42 @@
-{{- /* Comments area start */ -}}
-{{- /* to add comments read => https://gohugo.io/content-management/comments/ */ -}}
-{{- /* Comments area end */ -}}
+{{- /* Comments area start */ -}} {{- /* to add comments read =>
+https://gohugo.io/content-management/comments/ */ -}} {{- /* Comments area end
+*/ -}}
+<!-- <script
+  src="https://utteranc.es/client.js"
+  repo="takawang/utterances-comment"
+  issue-term="pathname"
+  theme="github-dark"
+  crossorigin="anonymous"
+  async
+></script> -->
+
+<section class="article discussion">
+  <script>
+    let currentHugoTheme = window.localStorage.getItem("pref-theme");
+    function loadComment() {
+      let theme = currentHugoTheme == "dark" ? "photon-dark" : "github-light";
+      let s = document.createElement("script");
+      s.src = "https://utteranc.es/client.js";
+      s.setAttribute("repo", "takawang/utterances-comment");
+      s.setAttribute("issue-term", "title");
+      s.setAttribute("label", "utterances");
+      s.setAttribute("theme", theme);
+      s.setAttribute("crossorigin", "anonymous");
+      s.setAttribute("async", "");
+      document.querySelector("section.article.discussion").innerHTML = "";
+      document.querySelector("section.article.discussion").appendChild(s);
+    }
+
+    loadComment();
+
+    document.querySelector(".logo-switches").onclick = async () => {
+      await new Promise((r) => setTimeout(r, 200));
+
+      let newHugoTheme = window.localStorage.getItem("pref-theme");
+      if (newHugoTheme != currentHugoTheme) {
+        currentHugoTheme = newHugoTheme;
+        loadComment();
+      }
+    };
+  </script>
+</section>
