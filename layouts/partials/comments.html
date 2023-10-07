@@ -23,7 +23,7 @@ https://gohugo.io/content-management/comments/ */ -}} {{- /* Comments area end
     // Function to load comments using Utterances
     function loadComments() {
       // Determine the theme based on user's preference
-      let theme = currentHugoTheme == "dark" ? "photon-dark" : "github-light";
+      let theme = currentHugoTheme == "light" ? "github-light" : "photon-dark";
 
       // Create a new script element for Utterances comments
       let scriptElement = document.createElement("script");
@@ -54,7 +54,7 @@ https://gohugo.io/content-management/comments/ */ -}} {{- /* Comments area end
         let newHugoTheme = window.localStorage.getItem("pref-theme");
 
         // If the theme preference has changed, reload the comments with the new theme
-        if (newHugoTheme !== currentHugoTheme) {
+        if (newHugoTheme != currentHugoTheme) {
           currentHugoTheme = newHugoTheme;
           loadComments();
         }
