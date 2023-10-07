@@ -12,31 +12,53 @@ https://gohugo.io/content-management/comments/ */ -}} {{- /* Comments area end
 
 <section class="article discussion">
   <script>
-    let currentHugoTheme = window.localStorage.getItem("pref-theme");
-    function loadComment() {
-      let theme = currentHugoTheme == "dark" ? "photon-dark" : "github-light";
-      let s = document.createElement("script");
-      s.src = "https://utteranc.es/client.js";
-      s.setAttribute("repo", "takawang/utterances-comment");
-      s.setAttribute("issue-term", "title");
-      s.setAttribute("label", "utterances");
-      s.setAttribute("theme", theme);
-      s.setAttribute("crossorigin", "anonymous");
-      s.setAttribute("async", "");
-      document.querySelector("section.article.discussion").innerHTML = "";
-      document.querySelector("section.article.discussion").appendChild(s);
+    // Cache DOM selections for better performance
+    let discussionSection = document.querySelector(
+      "section.article.discussion",
+    ); // Selects the discussion section
+    let logoSwitches = document.querySelector(".logo-switches"); // Selects the logo switches element
+    let currentHugoTheme = window.localStorage.getItem("pref-theme"); // Retrieves user's theme preference from local storage
+    let debounceTimer; // Variable to store the timer for debouncing theme switch events
+
+    // Function to load comments using Utterances
+    function loadComments() {
+      // Determine the theme based on user's preference
+      let theme = currentHugoTheme === "dark" ? "photon-dark" : "github-light";
+
+      // Create a new script element for Utterances comments
+      let scriptElement = document.createElement("script");
+      scriptElement.src = "https://utteranc.es/client.js";
+      scriptElement.setAttribute("repo", "takawang/utterances-comment");
+      scriptElement.setAttribute("issue-term", "title");
+      scriptElement.setAttribute("label", "utterances");
+      scriptElement.setAttribute("theme", theme);
+      scriptElement.setAttribute("crossorigin", "anonymous");
+      scriptElement.setAttribute("async", "");
+
+      // Clear existing content in the discussion section and append the script element
+      discussionSection.innerHTML = "";
+      discussionSection.appendChild(scriptElement);
     }
 
-    loadComment();
+    // Initial load of comments when the page loads
+    loadComments();
 
-    document.querySelector(".logo-switches").onclick = async () => {
-      await new Promise((r) => setTimeout(r, 200));
+    // Event listener for theme switch with debouncing
+    logoSwitches.onclick = () => {
+      // Clear the previous timer to avoid premature execution of the event handler
+      clearTimeout(debounceTimer);
 
-      let newHugoTheme = window.localStorage.getItem("pref-theme");
-      if (newHugoTheme != currentHugoTheme) {
-        currentHugoTheme = newHugoTheme;
-        loadComment();
-      }
+      // Set a new timer to debounce the theme switch event
+      debounceTimer = setTimeout(() => {
+        // Retrieve updated theme preference from local storage
+        let newHugoTheme = window.localStorage.getItem("pref-theme");
+
+        // If the theme preference has changed, reload the comments with the new theme
+        if (newHugoTheme !== currentHugoTheme) {
+          currentHugoTheme = newHugoTheme;
+          loadComments();
+        }
+      }, 200);
     };
   </script>
 </section>
