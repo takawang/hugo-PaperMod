@@ -120,7 +120,7 @@ https://gohugo.io/content-management/comments/ */ -}} {{- /* Comments area end
     let currentLang = (document.documentElement.lang || "en").toLowerCase();
     loadComments(
       currentHugoTheme == "light" ? "light" : "dark",
-      currentLang === "zh-tw" ? "zh-TW" : "en",
+      currentLang === "zh" ? "zh-TW" : "en",
     );
 
     // Event listener for theme switch and lang switch with debouncing
@@ -140,7 +140,7 @@ https://gohugo.io/content-management/comments/ */ -}} {{- /* Comments area end
           currentLang = newLang;
           loadComments(
             newHugoTheme == "light" ? "light" : "dark",
-            newLang === "zh-tw" ? "zh-TW" : "en",
+            newLang === "zh" ? "zh-TW" : "en",
           );
         }
       }, 200);
