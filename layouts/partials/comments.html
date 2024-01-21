@@ -1,3 +1,149 @@
-{{- /* Comments area start */ -}}
-{{- /* to add comments read => https://gohugo.io/content-management/comments/ */ -}}
-{{- /* Comments area end */ -}}
+{{- /* Comments area start */ -}} {{- /* to add comments read =>
+https://gohugo.io/content-management/comments/ */ -}} {{- /* Comments area end
+*/ -}}
+<!-- <script
+  src="https://utteranc.es/client.js"
+  repo="takawang/utterances-comment"
+  issue-term="pathname"
+  theme="github-dark"
+  crossorigin="anonymous"
+  async
+></script> -->
+
+<!-- <section class="article discussion">
+  <script>
+    // Cache DOM selections for better performance
+    let discussionSection = document.querySelector(
+      "section.article.discussion",
+    ); // Selects the discussion section
+    let logoSwitches = document.querySelector(".logo-switches"); // Selects the logo switches element
+    let currentHugoTheme = window.localStorage.getItem("pref-theme"); // Retrieves user's theme preference from local storage
+    let debounceTimer; // Variable to store the timer for debouncing theme switch events
+
+    // Function to load comments using Utterances
+    function loadComments() {
+      // Determine the theme based on user's preference
+      let theme = currentHugoTheme == "light" ? "github-light" : "photon-dark";
+
+      // Create a new script element for Utterances comments
+      let scriptElement = document.createElement("script");
+      scriptElement.src = "https://utteranc.es/client.js";
+      scriptElement.setAttribute("repo", "takawang/utterances-comment");
+      scriptElement.setAttribute("issue-term", "title");
+      scriptElement.setAttribute("label", "utterances");
+      scriptElement.setAttribute("theme", theme);
+      scriptElement.setAttribute("crossorigin", "anonymous");
+      scriptElement.setAttribute("async", "");
+
+      // Clear existing content in the discussion section and append the script element
+      discussionSection.innerHTML = "";
+      discussionSection.appendChild(scriptElement);
+    }
+
+    // Initial load of comments when the page loads
+    loadComments();
+
+    // Event listener for theme switch with debouncing
+    logoSwitches.onclick = () => {
+      // Clear the previous timer to avoid premature execution of the event handler
+      clearTimeout(debounceTimer);
+
+      // Set a new timer to debounce the theme switch event
+      debounceTimer = setTimeout(() => {
+        // Retrieve updated theme preference from local storage
+        let newHugoTheme = window.localStorage.getItem("pref-theme");
+
+        // If the theme preference has changed, reload the comments with the new theme
+        if (newHugoTheme != currentHugoTheme) {
+          currentHugoTheme = newHugoTheme;
+          loadComments();
+        }
+      }, 200);
+    };
+  </script>
+</section> -->
+
+<!-- <script
+  src="https://giscus.app/client.js"
+  data-repo="takawang/utterances-comment"
+  data-repo-id="R_kgDOKdHFAQ"
+  data-category="Announcements"
+  data-category-id="DIC_kwDOKdHFAc4CZ8BS"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="light"
+  data-lang="zh-TW"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script> -->
+
+<section class="article discussion">
+  <script defer>
+    // Cache DOM selections for better performance
+    let discussionSection = document.querySelector(
+      'section.article.discussion',
+    );
+    let logoSwitches = document.querySelector('.logo-switches');
+    let debounceTimer;
+
+    // Function to load comments using Giscus
+    function loadComments(theme, lang) {
+      // Create a new script element for Giscus comments
+      let scriptElement = document.createElement('script');
+      scriptElement.src = 'https://giscus.app/client.js';
+      scriptElement.setAttribute('data-repo', 'taka-wang/taka-wang.github.io');
+      scriptElement.setAttribute('data-repo-id', 'R_kgDOKc6Suw');
+      scriptElement.setAttribute('data-category', 'Announcements');
+      scriptElement.setAttribute('data-category-id', 'DIC_kwDOKc6Su84CaTJ_');
+      scriptElement.setAttribute('data-mapping', 'pathname');
+      scriptElement.setAttribute('data-strict', '0');
+      scriptElement.setAttribute('data-reactions-enabled', '1');
+      scriptElement.setAttribute('data-emit-metadata', '0');
+      scriptElement.setAttribute('data-input-position', 'bottom');
+      scriptElement.setAttribute('data-theme', theme);
+      scriptElement.setAttribute('data-lang', lang);
+      scriptElement.setAttribute('data-loading', 'lazy');
+      scriptElement.setAttribute('crossorigin', 'anonymous');
+      scriptElement.setAttribute('async', '');
+
+      // Clear existing content in the discussion section and append the script element
+      discussionSection.innerHTML = '';
+      discussionSection.appendChild(scriptElement);
+    }
+
+    // Initial load of comments when the page loads
+    let currentHugoTheme = window.localStorage.getItem('pref-theme') || 'dark'; // Default to "dark" theme
+    let currentLang = (document.documentElement.lang || 'en').toLowerCase();
+    loadComments(
+      currentHugoTheme === 'light' ? 'light' : 'dark',
+      currentLang === 'zh' ? 'zh-TW' : 'en',
+    );
+
+    // Event listener for theme switch and lang switch with debouncing
+    logoSwitches.onclick = () => {
+      // Clear the previous timer to avoid premature execution of the event handler
+      clearTimeout(debounceTimer);
+
+      // Set a new timer to debounce the theme and lang switch event
+      debounceTimer = setTimeout(() => {
+        // Retrieve updated theme preference from local storage
+        let newHugoTheme = window.localStorage.getItem('pref-theme') || 'dark'; // Default to "dark" theme
+        let newLang = (document.documentElement.lang || 'en').toLowerCase();
+
+        // If the theme or lang preference has changed, reload the comments with the new theme and lang
+        if (newHugoTheme !== currentHugoTheme || newLang !== currentLang) {
+          currentHugoTheme = newHugoTheme;
+          currentLang = newLang;
+          loadComments(
+            newHugoTheme == 'light' ? 'light' : 'dark',
+            newLang === 'zh' ? 'zh-TW' : 'en',
+          );
+        }
+      }, 200);
+    };
+  </script>
+</section>
